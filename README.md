@@ -16,6 +16,7 @@ front end:
 #Helpful MCPs: 
 
 Supabase - allows for claude code to query DB
+
 Playwright - allows for claude to view rendered front end and work autonomously for longer 
 
 
