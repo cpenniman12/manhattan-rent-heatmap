@@ -2,21 +2,21 @@
 
 An interactive heat map showing studio apartment rental prices across Manhattan. Colors range from blue/cyan (cheaper, ~$2,500/mo in Harlem) to red/orange (expensive, ~$6,500/mo in Midtown).
 
-![Heat Map Preview](https://via.placeholder.com/800x400?text=Manhattan+Rent+Heat+Map)
 
 ## How It Works
+backend data prep:
+- listings scraped from zillow, stored in supabase. (Web scraping approach inspired by job_smarts - https://github.com/akhalsa/job_smarts/tree/main/agent)
+- addresses converted to coordinates
 
-1) listings scraped from zillow, stored in supabase 
-2) addresses converted to coordinates
-3) coordinates placed on map
-4) claude,... you finished here 
-
-
+front end: 
+- use free front end map of manhattan via mapbox library
+- give the mapbox servcie coordinates and it will locate that spot on the map 
+- split manhattan up into coordinate tiles and place apartments accordingly
 
 #Helpful MCPs: 
 
 Supabase - allows for claude code to query DB
-Playwright - allows for claude to view rendered front end
+Playwright - allows for claude to view rendered front end and work autonomously for longer 
 
 
 tech stack:
@@ -25,6 +25,11 @@ tech stack:
 - **Mapbox GL** for map rendering
 - **Supabase** for data storage
 - **Tailwind CSS** for styling
+
+
+
+##Acknowledgements
+
 
 ## Quick Start
 
@@ -78,16 +83,7 @@ src/
 └── types.ts         # TypeScript types
 ```
 
-## Key Functions (src/utils.ts)
 
-- `generateManhattanGrid()` - Creates tile grid over Manhattan
-- `assignListingsToTiles()` - Maps rentals to tiles by location
-- `guessNeighborhoodFromAddress()` - Parses street numbers to estimate latitude
-- `getNeighborhood()` - Maps coordinates to neighborhood names
-
-## Acknowledgements
-
-- Web scraping approach inspired by [job_smarts](https://github.com/akhalsa/job_smarts/tree/main/agent) by [@akhalsa](https://github.com/akhalsa)
 
 ## License
 
