@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Prevent scroll on body when map is focused */
+  body.map-focused {
+    overflow: hidden;
+  }
+}
+
+@layer components {
+  .mapboxgl-popup-content {
+    @apply rounded-lg shadow-lg border border-gray-200;
+  }
+  
+  .mapboxgl-popup-tip {
+    @apply border-t-gray-200;
+  }
+
+  /* Ensure mapbox canvas renders properly */
+  .mapboxgl-map {
+    width: 100% !important;
+    height: 100% !important;
+  }
+  
+  .mapboxgl-canvas {
+    outline: none;
+  }
+} 
