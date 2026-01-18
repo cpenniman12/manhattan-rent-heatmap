@@ -7,7 +7,7 @@ interface TooltipProps {
 }
 
 const Tooltip = ({ data }: TooltipProps) => {
-  const { x, y, avgRent, count } = data;
+  const { x, y, price, count } = data;
 
   return (
     <div
@@ -25,7 +25,7 @@ const Tooltip = ({ data }: TooltipProps) => {
             <Home className="h-4 w-4 text-blue-600" />
             <div>
               <div className="text-sm font-semibold text-gray-900">
-                {formatCurrency(avgRent)}
+                {formatCurrency(price)}
               </div>
               <div className="text-xs text-gray-500">avg monthly rent</div>
             </div>

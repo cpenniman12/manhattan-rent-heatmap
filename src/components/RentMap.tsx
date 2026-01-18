@@ -47,8 +47,13 @@ const RentMap = ({
   }, [debouncedMapUpdate]);
 
   const handleMouseEnter = useCallback((event: MapLayerMouseEvent) => {
-    if (event.features && event.features[0] && event.features[0].layer.id === 'rent-grid') {
-      const feature = event.features[0];
+    if (!event.features?.length) {
+      onTooltip(null);
+      return;
+    }
+
+    const feature = event.features[0];
+    if (feature?.layer?.id === 'rent-grid') {
       const properties = feature.properties as any;
 
       onTooltip({

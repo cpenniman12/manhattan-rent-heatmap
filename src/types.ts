@@ -1,20 +1,22 @@
 export interface RentData {
   price: number;
-  address: string;
+  address?: string;
   neighborhood: string;
   building_name?: string;
   beds: number;
   price_display: string;
   count?: number;
-  cluster_type?: 'individual' | 'block' | 'neighborhood' | 'borough';
+  cluster_type?: 'individual' | 'block' | 'neighborhood' | 'borough' | 'grid';
+  center_lat?: number;
+  center_lng?: number;
 }
 
 export interface ListingFeature {
   type: 'Feature';
   properties: RentData;
   geometry: {
-    type: 'Point';
-    coordinates: [number, number];
+    type: 'Point' | 'Polygon';
+    coordinates: [number, number] | number[][][];
   };
 }
 

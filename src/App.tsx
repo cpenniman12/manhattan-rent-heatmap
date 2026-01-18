@@ -1,19 +1,15 @@
 import { useState, useCallback, useEffect } from 'react';
 import AppShell from './components/AppShell';
 import RentMap from './components/RentMap';
-import FiltersPanel from './components/FiltersPanel';
-import LegendBar from './components/LegendBar';
 import { Filters, TileResponse, TooltipData } from './types';
 import { generateSampleData, generateManhattanGrid, assignListingsToTiles } from './utils';
 import { fetchRentals, fetchRentalsByBedrooms, Rental } from './supabase';
 
 function App() {
-  const [filters, setFilters] = useState<Filters>({ bedrooms: 0 }); // Default to Studios
+  const [filters] = useState<Filters>({ bedrooms: 0 }); // Default to Studios
   const [mapData, setMapData] = useState<TileResponse>(generateSampleData());
   const [tooltip, setTooltip] = useState<TooltipData | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [isSupabaseConnected, setIsSupabaseConnected] = useState(false);
-  const [totalListings, setTotalListings] = useState(0);
 
   // Function to fetch data from Supabase and generate heat map tiles
   const fetchRentData = useCallback(async (bedrooms: number | null) => {
@@ -27,7 +23,6 @@ function App() {
 
       console.log(`✅ Loaded ${rentals.length} rentals from Supabase`);
       console.log('Sample rentals:', rentals.slice(0, 3));
-      setTotalListings(rentals.length);
 
       // Generate Manhattan grid tiles
       const gridTiles = generateManhattanGrid();
@@ -53,22 +48,14 @@ function App() {
         }
       } as TileResponse);
 
-      setIsSupabaseConnected(true);
-
     } catch (error) {
       console.error('Failed to fetch rent data from Supabase:', error);
       // Fallback to sample data if Supabase is not available
       setMapData(generateSampleData());
-      setIsSupabaseConnected(false);
     } finally {
       setIsLoading(false);
     }
   }, []);
-
-  const handleFiltersChange = useCallback((newFilters: Filters) => {
-    setFilters(newFilters);
-    fetchRentData(newFilters.bedrooms);
-  }, [fetchRentData]);
 
   const handleMapUpdate = useCallback(() => {
     // Map updates don't require re-fetching in grid-based approach
